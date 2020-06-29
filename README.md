@@ -11,7 +11,7 @@ git clone the repo, then:
 
 > cargo build --release
 
-> mv target/release/pseqdist ~/bin/
+> cp target/release/pseqdist ~/bin/
 
 ## Usage
 
@@ -24,4 +24,4 @@ For more infomation
 > pseqdist -h
 
 ## Dependencies
-See "Cargo.toml"
+See Cargo.toml
