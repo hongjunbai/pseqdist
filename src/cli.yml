@@ -1,0 +1,35 @@
+name: distmat
+version: "0.1.0"
+author: H Bai <bbhhjj@gmail.com>
+about: Get distance matrix between sequences in the given alignment
+args:
+    - INPUT:
+        help: The input alignment (FASTA format)
+        required: true
+        index: 1
+    - method:
+        short: m
+        #long: method
+        value_name: method
+        help: Distance method
+        takes_value: true
+        default_value: "identity"
+        possible_values:
+            - identity
+            - similarity
+            - hamming
+    - nthread:
+        short: n
+        #long: method
+        value_name: nthread
+        help: number of threads
+        takes_value: true
+        default_value: "0"
+    - outfile:
+        short: o
+        #long: outfile
+        value_name: outfile
+        help: Output file
+        takes_value: true
+        default_value: distmat.txt
+

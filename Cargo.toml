@@ -1,0 +1,20 @@
+[package]
+name = "distmat"
+version = "0.1.0"
+authors = ["hjbai <bbhhjj@gmail.com>"]
+edition = "2018"
+
+[lib]
+name = "distmat"
+path = "src/lib.rs"
+
+[[bin]]
+name = "distmat"
+path = "src/main.rs"
+
+[dependencies]
+itertools = "0.9"
+rayon = "1.3"
+clap = {version = "2.33", features = ["yaml"]}
+ndarray = "0.13"
+num_cpus = "1.13"
