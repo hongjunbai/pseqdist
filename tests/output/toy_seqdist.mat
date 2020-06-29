@@ -1,0 +1,6 @@
+# ./target/release/pseqdist tests/data/toy.fa -o tests/output/toy_seqdist.mat -m hamming
+#
+seqs	seq1	seq2	seq3
+seq1	0	5	11
+seq2	5	0	8
+seq3	11	8	0
