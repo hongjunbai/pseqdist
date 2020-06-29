@@ -11,3 +11,7 @@
 * Should not do
     * Get most efficient code
     * Find Rust idiom for every piece of code
+
+## Others
+* Combining two git repositories
+    * https://gist.github.com/msrose/2feacb303035d11d2d05
