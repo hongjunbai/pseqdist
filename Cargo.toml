@@ -1,15 +1,15 @@
 [package]
-name = "distmat"
+name = "pseqdist"
 version = "0.1.0"
 authors = ["hjbai <bbhhjj@gmail.com>"]
 edition = "2018"
 
 [lib]
-name = "distmat"
+name = "pseqdist"
 path = "src/lib.rs"
 
 [[bin]]
-name = "distmat"
+name = "pseqdist"
 path = "src/main.rs"
 
 [dependencies]

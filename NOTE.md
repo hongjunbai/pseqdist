@@ -1,5 +1,6 @@
-# Goals
-* A usable sequence distance matrix tool
+# Personal notes - HB
+## Goals
+* A usable pairwise sequence distance tool
 * simple parallel
 * Lean the good pratice in Rust development
     * TDD in Rust

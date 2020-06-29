@@ -1,7 +1,7 @@
-name: distmat
+name: pseqdist
 version: "0.1.0"
 author: H Bai <bbhhjj@gmail.com>
-about: Get distance matrix between sequences in the given alignment
+about: Get pairwise sequence distance for a given alignment
 args:
     - INPUT:
         help: The input alignment (FASTA format)
@@ -31,5 +31,5 @@ args:
         value_name: outfile
         help: Output file
         takes_value: true
-        default_value: distmat.txt
+        default_value: seqdist.mat
 

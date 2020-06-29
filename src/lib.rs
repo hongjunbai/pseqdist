@@ -103,7 +103,7 @@ pub fn pairwise_dist<T: Send> (seqs: &[String], f: fn(&str, &str) -> T) -> Vec<T
     pidxs.par_iter().map(|(i, j)| f(&seqs[*i as usize], &seqs[*j as usize])).collect()
 }
 
-pub fn to_mat<T: Clone+Copy> (pdist: &Vec<T>, diag_fill: T) -> Array2<T> {
+pub fn to_mat<T: Clone+Copy> (pdist: &[T], diag_fill: T) -> Array2<T> {
     let t = (1.0 + ((1+8*pdist.len()) as f64).sqrt())/2.0;
     assert!((t-t.round()).abs() < 1E-6);  // Fail if pdist is of wrong size (didn't correspond to a matrix)
     let n = t as usize;
@@ -130,7 +130,7 @@ mod tests {
     fn test_read_fasta() {
         let expected_names = vec_of_strings!["seq1", "seq2", "seq3"];
         let expected_seqs = vec_of_strings!["AD-DSE-FPHTTSTST", "AD-DSE-FPHF-SS-H", "ADLHDH-SGHA-SS--"];
-        let (names, seqs) = read_fasta("data/toy.fa".to_string());
+        let (names, seqs) = read_fasta("tests/data/toy.fa".to_string());
         let n_matching_names = zip!(expected_names, names).filter(|&(a, b)| a == b).count();
         let n_matching_seqs = zip!(expected_seqs, seqs).filter(|&(a, b)| a == b).count();
         assert!(n_matching_names == expected_names.len());

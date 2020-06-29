@@ -1,11 +1,10 @@
-extern crate distmat;
+extern crate pseqdist;
 
 use std::env;
 use std::fs::File;
 use std::io::{Write, Error};
 use std::path::Path;
 use clap::{App, load_yaml};
-// use distmat::zip;
 
 fn main() -> Result<(), Error> {
     let yaml = load_yaml!("cli.yml");
@@ -19,33 +18,33 @@ fn main() -> Result<(), Error> {
     if nthread <= 0 || nthread > max_cpus {
         nthread = max_cpus;
     } 
-    println!("nthread: {}", nthread);
+    // println!("nthread: {}", nthread);
     rayon::ThreadPoolBuilder::new().num_threads(nthread as usize).build_global().unwrap();
 
     // Input alignment
-    println!("Using input file: {}", args.value_of("INPUT").unwrap());
+    // println!("Using input file: {}", args.value_of("INPUT").unwrap());
     let input = args.value_of("INPUT").unwrap().to_string();
-    let (headers, seqs) = distmat::read_fasta(input);
+    let (headers, seqs) = pseqdist::read_fasta(input);
     // for h in &headers { println!("{:?}", h); }
-    let names: Vec<_> = headers.iter().map(|x| x.split(' ').nth(0).unwrap()).collect();
-    // for (n, s) in zip!(names, seqs) { println!(">{:?} | {:?}", n, s); }
+    let names: Vec<_> = headers.iter().map(|x| x.split(' ').next().unwrap()).collect();
+    // for (n, s) in pseqdist::zip!(names, seqs) { println!(">{:?} | {:?}", n, s); }
     // Distance method
     let method = args.value_of("method").unwrap();
     let f_dist: fn(&str, &str) -> f32 = match method {
-        "similarity" => distmat::similarity,
-        "identity" => distmat::identity,
+        "similarity" => pseqdist::similarity,
+        "identity" => pseqdist::identity,
         "hamming" => hamming_f,
-        _ => distmat::identity,
+        _ => pseqdist::identity,
     };
 
     // Get the distance matrix
-    println!("Distance method: {}", args.value_of("method").unwrap());
-    let pdist = distmat::pairwise_dist(&seqs, f_dist);
+    // println!("Distance method: {}", args.value_of("method").unwrap());
+    let pdist = pseqdist::pairwise_dist(&seqs, f_dist);
     let diag_fill = match method {
         "hamming" => 0.0,
         _ => 100.0,
     };
-    let mat = distmat::to_mat(&pdist, diag_fill);
+    let mat = pseqdist::to_mat(&pdist, diag_fill);
 
     // Output
     // println!("{:?}", mat);
@@ -57,7 +56,7 @@ fn main() -> Result<(), Error> {
         Ok(file) => file,
     };
     // Write
-    println!("Writing output file: {}", args.value_of("outfile").unwrap());
+    // println!("Writing output file: {}", args.value_of("outfile").unwrap());
     writeln!(file, "# {}", args_vec.join(" "))?;
     writeln!(file, "#")?;
     writeln!(file, "seqs\t{}", names.join("\t"))?;
@@ -71,5 +70,5 @@ fn main() -> Result<(), Error> {
 
 // convert the return type as f32 to facilitate match
 fn hamming_f(a: &str, b:&str) -> f32 {
-    distmat::hamming(&a, &b) as f32
+    pseqdist::hamming(&a, &b) as f32
 }
