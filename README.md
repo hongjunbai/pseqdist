@@ -8,13 +8,16 @@ Supported distances: hamming, identity and similarity.
 git clone the repo, then:
 
 > cd pseqdist/
+
 > cargo build --release
+
 > mv target/release/pseqdist ~/bin/
 
 ## Usage
 
 As an example:
 > pseqdist -m hamming ./tests/data/toy.fa -o ./test.mat
+
 > diff ./test.mat ./tests/output/toy_seqdist.mat
 
 For more infomation
