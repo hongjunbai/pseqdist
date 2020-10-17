@@ -1,4 +1,4 @@
-extern crate pseqdist;
+mod pseqdist;
 
 use std::env;
 use std::fs::File;
