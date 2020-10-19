@@ -56,7 +56,8 @@ fn main() -> Result<(), Error> {
     };
     // Write
     // println!("Writing output file: {}", args.value_of("outfile").unwrap());
-    writeln!(file, "# {}", env::args().collect::<Vec<String>>().join(" "))?;
+    let input_args: Vec<_> = env::args().collect();
+    writeln!(file, "# {}", input_args.join(" "))?;
     writeln!(file, "#")?;
     writeln!(file, "seqs\t{}", names.join("\t"))?;
     for (name, row) in names.iter().zip(mat.genrows()) {
